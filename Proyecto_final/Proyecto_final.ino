@@ -144,30 +144,22 @@ void loop()
                   if (beatsPerMinute>100)
                   {
                       digitalWrite(ledRojo, HIGH);
-                  }
-                  else
-                  {
-                      digitalWrite(ledRojo, LOW);
-                  }
-                  
-                  if (beatsPerMinute>=60 && beatsPerMinute<=100)
-                  {
-                      digitalWrite(ledVerde, HIGH);
-                  }
-                  else
-                  {
                       digitalWrite(ledVerde, LOW);
-                  }
-                  
-                  if (beatsPerMinute<60 && beatsPerMinute>0)
-                  {
-                      digitalWrite(ledAmarillo, HIGH);
-                  }
-                  else
-                  {
                       digitalWrite(ledAmarillo, LOW);
                   }
-              
+                  else if (beatsPerMinute>=60 && beatsPerMinute<=100)
+                  {
+                      digitalWrite(ledRojo, LOW);
+                      digitalWrite(ledVerde, HIGH);
+                      digitalWrite(ledAmarillo, LOW);
+                  }
+                  
+                 else if (beatsPerMinute<60 && beatsPerMinute>0)
+                  {
+                      digitalWrite(ledRojo, LOW);
+                      digitalWrite(ledVerde, LOW);
+                      digitalWrite(ledAmarillo, HIGH);
+                  }
             
                 oled.clearDisplay(); 
                 oled.setCursor(0, 0);     
