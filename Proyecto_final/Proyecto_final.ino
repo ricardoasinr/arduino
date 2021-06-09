@@ -111,17 +111,17 @@ void loop()
     
     else if(estado==2)
           { 
-               long irValue = particleSensor.getIR();  
-               if (irValue < 50000){
+               long detectaDedo = particleSensor.getIR();  
+               if (detectaDedo < 50000){
                  oled.clearDisplay(); 
-                oled.setCursor(0, 10);     
+                oled.setCursor(0, 5);     
                 oled.setTextSize(1);      
                 oled.print("Coloca tu dedo en el sensor"); 
                 oled.display();
                 }
                 else 
                 {
-                   if (checkForBeat(irValue) == true)
+                   if (checkForBeat(detectaDedo) == true)
                 {
                   long delta = millis() - lastBeat;
                   lastBeat = millis();
