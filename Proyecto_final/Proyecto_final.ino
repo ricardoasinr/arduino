@@ -20,6 +20,9 @@ const byte FILAS=4;
 const byte COLUMNAS=4;
 byte pinesFilas[FILAS]= {9,8,7,6};
 byte pinesColumnas[COLUMNAS]= {5,4,3,2};
+int ledRojo = 13;
+int ledAmarillo = 12;
+int ledVerde=11;
 
 long lastBeat = 0; 
 float beatsPerMinute;
@@ -50,6 +53,9 @@ void setup()
   //Serial.println("Por favor coloque su dedo en el sensor");
 
   pinMode(BUZZER, OUTPUT);
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledAmarillo, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
   particleSensor.setup(); //Carga la configuración por defecto del sensor.
   particleSensor.setPulseAmplitudeRed(0x0A); //Enciende el led rojo del sensor para verificar si esta funcionando.
   particleSensor.setPulseAmplitudeGreen(0); //Apaga el led verde en caso que el sensor cuente con este led.
@@ -58,8 +64,9 @@ void setup()
 
 void loop()
 {
-   
-      
+      /*digitalWrite(ledAmarillo, HIGH);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledRojo, HIGH);*/
       //Texto de bienvenida 
       TECLA= teclado.getKey();
 
@@ -134,6 +141,32 @@ void loop()
                   beatsPerMinute = 60 / (delta / 1000.0);
                   
                 }
+                  if (beatsPerMinute>100)
+                  {
+                      digitalWrite(ledRojo, HIGH);
+                  }
+                  else
+                  {
+                      digitalWrite(ledRojo, LOW);
+                  }
+                  
+                  if (beatsPerMinute>=60 && beatsPerMinute<=100)
+                  {
+                      digitalWrite(ledVerde, HIGH);
+                  }
+                  else
+                  {
+                      digitalWrite(ledVerde, LOW);
+                  }
+                  
+                  if (beatsPerMinute<60 && beatsPerMinute>0)
+                  {
+                      digitalWrite(ledAmarillo, HIGH);
+                  }
+                  else
+                  {
+                      digitalWrite(ledAmarillo, LOW);
+                  }
               
             
                 oled.clearDisplay(); 
@@ -161,6 +194,18 @@ void loop()
                 
                 else {
                 oxigenacion = random(85, 99);
+                if(oxigenacion>90)
+                {
+                  digitalWrite(ledVerde, HIGH);
+                  digitalWrite(ledRojo, LOW);
+                  }
+                else if (oxigenacion<90)
+                  {
+                      digitalWrite(ledVerde, LOW);
+                      digitalWrite(ledRojo, HIGH);
+                  }
+        
+                
                 oled.clearDisplay(); 
                 oled.setTextColor(WHITE);
                 oled.setCursor(0, 0);     
