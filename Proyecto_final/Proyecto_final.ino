@@ -26,6 +26,7 @@ float beatsPerMinute;
 int beatAvg;
 char TECLA;
 int inicio=0;
+int opciones =0;
 char keys[FILAS][COLUMNAS]= {    // define la distribucion de teclas
   {'1','2','3','A'},
   {'4','5','6','B'},
@@ -62,7 +63,14 @@ void loop()
         {
           inicio=1;
         }
-      
+      if(TECLA=='*')
+        {
+          inicio=0;
+        }
+     if(TECLA=='2')
+          {
+            opciones=1;
+          } 
       
     
       if(inicio==0)
@@ -75,7 +83,9 @@ void loop()
       }
       else
       {
-        oled.clearDisplay(); 
+        if(inicio==1)
+        {
+          oled.clearDisplay(); 
           oled.setCursor(0,0);     
           oled.setTextSize(1);      
           oled.print("Opciones:"); 
@@ -87,9 +97,37 @@ void loop()
           oled.setCursor(0,25);     
           oled.setTextSize(1);      
           oled.print("[3].Medir oxigenacion");  
-          
           oled.display();
+        }else
+        {
+          if(opciones==1)
+          {
+                oled.clearDisplay(); 
+                oled.setCursor(0, 0);     
+                oled.setTextSize(1);      
+                oled.print("Pulso por hora");  
+                oled.setCursor(0,10);     
+                oled.setTextSize(1);      
+                oled.print(beatsPerMinute); 
+                oled.display();
+            
+          }
+        }
+
+        /*
+          if((opciones =2))
+              {
+                oled.clearDisplay(); 
+                oled.setCursor(0, 0);     
+                oled.setTextSize(1);      
+                oled.print("Pulso por hora");  
+                oled.setCursor(0,10);     
+                oled.setTextSize(1);      
+                oled.print(beatsPerMinute); 
+                oled.display();
+              }*/
       }
+      
       
 
       //Se cierra en cierto tiempo 
