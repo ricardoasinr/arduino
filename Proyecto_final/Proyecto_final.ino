@@ -58,7 +58,8 @@ void setup()
 
 void loop()
 {
-
+   
+      
       //Texto de bienvenida 
       TECLA= teclado.getKey();
 
@@ -66,6 +67,8 @@ void loop()
       {
         case '1': 
           estado=1;
+          tone(BUZZER,200);
+          
         break;
         
         case '2':
@@ -96,7 +99,7 @@ void loop()
       {
         
           oled.clearDisplay(); 
-          
+          tone(BUZZER,0);
           oled.setCursor(0,0);     
           oled.setTextSize(1);      
           oled.print("Opciones:"); 
