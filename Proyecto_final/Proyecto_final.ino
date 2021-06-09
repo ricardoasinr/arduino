@@ -25,8 +25,8 @@ long lastBeat = 0;
 float beatsPerMinute;
 int beatAvg;
 char TECLA;
-int inicio=0;
-int opciones =0;
+int estado=0;
+
 char keys[FILAS][COLUMNAS]= {    // define la distribucion de teclas
   {'1','2','3','A'},
   {'4','5','6','B'},
@@ -63,24 +63,24 @@ void loop()
       switch(TECLA)
       {
         case '1': 
-          inicio=1;
+          estado=1;
         break;
         
         case '2':
-         inicio=2;
+         estado=2;
         break;
 
         case '3':
-         inicio=3;
+         estado=3;
         break;
          
         case'*':
-          inicio=0;
+          estado=0;
         break;
       }
       
 
-      if(inicio==0)
+      if(estado==0)
       {
         oled.clearDisplay(); 
         oled.setTextColor(WHITE);
@@ -90,7 +90,7 @@ void loop()
         oled.display();
         
       }
-      else if(inicio==1)
+      else if(estado==1)
       {
         
           oled.clearDisplay(); 
@@ -109,10 +109,29 @@ void loop()
           oled.display();
       }
     
-    else if(inicio==2)
-          {
+    else if(estado==2)
+          { 
+               long irValue = particleSensor.getIR();  
+               if (irValue < 50000){
+                 oled.clearDisplay(); 
+                oled.setCursor(0, 10);     
+                oled.setTextSize(1);      
+                oled.print("Coloca tu dedo en el sensor"); 
+                oled.display();
+                }
+                else 
+                {
+                   if (checkForBeat(irValue) == true)
+                {
+                  long delta = millis() - lastBeat;
+                  lastBeat = millis();
+              
+                  beatsPerMinute = 60 / (delta / 1000.0);
+                  
+                }
+              
+            
                 oled.clearDisplay(); 
-                
                 oled.setCursor(0, 0);     
                 oled.setTextSize(1);      
                 oled.print("Pulso por minuto:");  
@@ -120,9 +139,11 @@ void loop()
                 oled.setTextSize(1);      
                 oled.print(beatsPerMinute); 
                 oled.display();
+               }  
+             
             
           }
-     else if(inicio==3)
+     else if(estado==3)
           {
                 oled.clearDisplay(); 
                 oled.setTextColor(WHITE);
@@ -136,31 +157,23 @@ void loop()
             
           }
         
-  long irValue = particleSensor.getIR();
-   if (irValue < 50000){
+ 
+  /* if (irValue < 50000){
     
     //Serial.print(" No finger?");
     
    }
     
   
-  if (checkForBeat(irValue) == true)
-  {
-    long delta = millis() - lastBeat;
-    lastBeat = millis();
 
-    beatsPerMinute = 60 / (delta / 1000.0);
-
-    
-  }
-
+/*
   Serial.print("IR=");
   Serial.print(irValue);
   Serial.print(", BPM=");
   Serial.print(beatsPerMinute);
   Serial.print(", Avg BPM=");
   Serial.print(beatAvg);
-
+*/
  
 
   Serial.println();
