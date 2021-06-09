@@ -62,7 +62,7 @@ void loop()
         {
           inicio=1;
         }
-      //Se subio bien!
+      
       
     
       if(inicio==0)
