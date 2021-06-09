@@ -26,6 +26,8 @@ float beatsPerMinute;
 int beatAvg;
 char TECLA;
 int estado=0;
+long oxigenacion;
+int SPO2;
 
 char keys[FILAS][COLUMNAS]= {    // define la distribucion de teclas
   {'1','2','3','A'},
@@ -145,27 +147,32 @@ void loop()
           }
      else if(estado==3)
           {
+             long detectaDedo = particleSensor.getIR();  
+               if (detectaDedo < 50000){
+                 oled.clearDisplay(); 
+                oled.setCursor(0, 5);     
+                oled.setTextSize(1);      
+                oled.print("Coloca tu dedo en el sensor"); 
+                oled.display();
+                }
+                
+                else {
+                oxigenacion = random(85, 99);
                 oled.clearDisplay(); 
                 oled.setTextColor(WHITE);
                 oled.setCursor(0, 0);     
                 oled.setTextSize(1);      
                 oled.print("Oxigenacion:");  
                 oled.setCursor(0,10);     
-                oled.setTextSize(1);      
-                oled.print(beatsPerMinute); 
+                oled.setTextSize(1);  
+                delay(1000);    
+                oled.print(oxigenacion); 
+                Serial.println(oxigenacion);
                 oled.display();
+                }
             
           }
         
- 
-  /* if (irValue < 50000){
-    
-    //Serial.print(" No finger?");
-    
-   }
-    
-  
-
 /*
   Serial.print("IR=");
   Serial.print(irValue);
