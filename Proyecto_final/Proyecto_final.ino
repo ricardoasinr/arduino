@@ -82,6 +82,7 @@ void loop()
 
       if(inicio==0)
       {
+        oled.clearDisplay(); 
         oled.setTextColor(WHITE);
         oled.setCursor(0, 10);     
         oled.setTextSize(1);      
@@ -93,7 +94,7 @@ void loop()
       {
         
           oled.clearDisplay(); 
-          oled.setTextColor(WHITE);
+          
           oled.setCursor(0,0);     
           oled.setTextSize(1);      
           oled.print("Opciones:"); 
@@ -111,7 +112,7 @@ void loop()
     else if(inicio==2)
           {
                 oled.clearDisplay(); 
-                oled.setTextColor(WHITE);
+                
                 oled.setCursor(0, 0);     
                 oled.setTextSize(1);      
                 oled.print("Pulso por minuto:");  
