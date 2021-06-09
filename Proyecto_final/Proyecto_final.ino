@@ -59,33 +59,41 @@ void loop()
 
       //Texto de bienvenida 
       TECLA= teclado.getKey();
-      if(TECLA=='1')
-        {
+
+      switch(TECLA)
+      {
+        case '1': 
           inicio=1;
-        }
-      if(TECLA=='*')
-        {
+        break;
+        
+        case '2':
+         inicio=2;
+        break;
+
+        case '3':
+         inicio=3;
+        break;
+         
+        case'*':
           inicio=0;
-        }
-     if(TECLA=='2')
-          {
-            opciones=1;
-          } 
+        break;
+      }
       
-    
+
       if(inicio==0)
       {
+        oled.setTextColor(WHITE);
         oled.setCursor(0, 10);     
         oled.setTextSize(1);      
         oled.print("Presiona [1] para    empezar el programa");  
         oled.display();
         
       }
-      else
+      else if(inicio==1)
       {
-        if(inicio==1)
-        {
+        
           oled.clearDisplay(); 
+          oled.setTextColor(WHITE);
           oled.setCursor(0,0);     
           oled.setTextSize(1);      
           oled.print("Opciones:"); 
@@ -98,44 +106,35 @@ void loop()
           oled.setTextSize(1);      
           oled.print("[3].Medir oxigenacion");  
           oled.display();
-        }else
-        {
-          if(opciones==1)
+      }
+    
+    else if(inicio==2)
           {
                 oled.clearDisplay(); 
+                oled.setTextColor(WHITE);
                 oled.setCursor(0, 0);     
                 oled.setTextSize(1);      
-                oled.print("Pulso por hora");  
+                oled.print("Pulso por minuto:");  
                 oled.setCursor(0,10);     
                 oled.setTextSize(1);      
                 oled.print(beatsPerMinute); 
                 oled.display();
             
           }
-        }
-
-        /*
-          if((opciones =2))
-              {
+     else if(inicio==3)
+          {
                 oled.clearDisplay(); 
+                oled.setTextColor(WHITE);
                 oled.setCursor(0, 0);     
                 oled.setTextSize(1);      
-                oled.print("Pulso por hora");  
+                oled.print("Oxigenacion:");  
                 oled.setCursor(0,10);     
                 oled.setTextSize(1);      
                 oled.print(beatsPerMinute); 
                 oled.display();
-              }*/
-      }
-      
-      
-
-      //Se cierra en cierto tiempo 
-
-      ///Carga el menu 
-
-
-  
+            
+          }
+        
   long irValue = particleSensor.getIR();
    if (irValue < 50000){
     
@@ -154,17 +153,6 @@ void loop()
     
   }
 
-      oled.clearDisplay();      // limpia pantalla
-      oled.setTextColor(WHITE);
-      /*
-      oled.setCursor(0, 0);     
-      oled.setTextSize(1);      
-      oled.print("Pulso por hora");  // escribe en pantalla el texto
-      oled.setCursor(0,10);     
-      oled.setTextSize(1);      
-      oled.print(beatsPerMinute);  // escribe en pantalla el texto
-      oled.display();
-*/
   Serial.print("IR=");
   Serial.print(irValue);
   Serial.print(", BPM=");
