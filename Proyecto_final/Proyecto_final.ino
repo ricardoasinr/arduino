@@ -64,9 +64,9 @@ void setup()
 
 void loop()
 {
-      /*digitalWrite(ledAmarillo, HIGH);
-      digitalWrite(ledVerde, HIGH);
-      digitalWrite(ledRojo, HIGH);*/
+      digitalWrite(ledAmarillo, LOW);
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledRojo, LOW);
       //Texto de bienvenida 
       TECLA= teclado.getKey();
 
@@ -75,19 +75,32 @@ void loop()
         case '1': 
           estado=1;
           tone(BUZZER,200);
-          
+          delay(100); 
+          tone(BUZZER,0);
         break;
         
         case '2':
          estado=2;
+         tone(BUZZER,200);
+          delay(100); 
+          tone(BUZZER,0);
         break;
 
         case '3':
          estado=3;
+         tone(BUZZER,200);
+          delay(100); 
+          tone(BUZZER,0);
+         digitalWrite(ledAmarillo, LOW);
+         digitalWrite(ledVerde, LOW);
+         digitalWrite(ledRojo, LOW);
         break;
          
         case'*':
           estado=0;
+          tone(BUZZER,200);
+          delay(100); 
+          tone(BUZZER,0);
         break;
       }
       
@@ -106,7 +119,6 @@ void loop()
       {
         
           oled.clearDisplay(); 
-          tone(BUZZER,0);
           oled.setCursor(0,0);     
           oled.setTextSize(1);      
           oled.print("Opciones:"); 
@@ -196,8 +208,7 @@ void loop()
                       digitalWrite(ledVerde, LOW);
                       digitalWrite(ledRojo, HIGH);
                   }
-        
-                
+
                 oled.clearDisplay(); 
                 oled.setTextColor(WHITE);
                 oled.setCursor(0, 0);     
@@ -212,16 +223,6 @@ void loop()
                 }
             
           }
-        
-/*
-  Serial.print("IR=");
-  Serial.print(irValue);
-  Serial.print(", BPM=");
-  Serial.print(beatsPerMinute);
-  Serial.print(", Avg BPM=");
-  Serial.print(beatAvg);
-*/
- 
 
   Serial.println();
 }
