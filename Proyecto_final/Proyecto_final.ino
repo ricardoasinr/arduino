@@ -5,17 +5,13 @@
 #include "heartRate.h"
 #include "spo2_algorithm.h"
 #include <Keypad.h> 
-
 #define BUZZER 10
 #define ANCHO 128     
 #define ALTO 32       
 #define OLED_RESET 4      
 
-
 MAX30105 particleSensor;
 Adafruit_SSD1306 oled(ANCHO, ALTO, &Wire, OLED_RESET);
-
-
 
 const byte FILAS=4;
 const byte COLUMNAS=4;
@@ -24,7 +20,6 @@ byte pinesColumnas[COLUMNAS]= {5,4,3,2};
 int ledRojo = 13;
 int ledAmarillo = 12;
 int ledVerde=11;
-
 long lastBeat = 0; 
 float beatsPerMinute;
 int beatAvg;
@@ -65,7 +60,7 @@ void setup()
 
 void loop()
 {
-     
+      
       digitalWrite(ledAmarillo, LOW);
       digitalWrite(ledVerde, LOW);
       digitalWrite(ledRojo, LOW);
@@ -78,21 +73,21 @@ void loop()
           estado=1;
           tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,-100);
+          tone(BUZZER,0);
         break;
         
         case '2':
          estado=2;
          tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,-100);
+          tone(BUZZER,0);
         break;
 
         case '3':
          estado=3;
          tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,-100);
+          tone(BUZZER,0);
          digitalWrite(ledAmarillo, LOW);
          digitalWrite(ledVerde, LOW);
          digitalWrite(ledRojo, LOW);
@@ -101,7 +96,7 @@ void loop()
         case'*':
           estado=0;
           tone(BUZZER,200);
-          delay(100); 
+          delay(500); 
           tone(BUZZER,0);
         break;
       }
