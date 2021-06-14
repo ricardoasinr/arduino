@@ -3,9 +3,10 @@
 #include <Adafruit_GFX.h>   
 #include <Adafruit_SSD1306.h>
 #include "heartRate.h"
+#include "spo2_algorithm.h"
 #include <Keypad.h> 
 
-#define BUZZER 1
+#define BUZZER 10
 #define ANCHO 128     
 #define ALTO 32       
 #define OLED_RESET 4      
@@ -30,7 +31,7 @@ int beatAvg;
 char TECLA;
 int estado=0;
 long oxigenacion;
-int SPO2;
+int spo2;
 
 char keys[FILAS][COLUMNAS]= {    // define la distribucion de teclas
   {'1','2','3','A'},
@@ -64,33 +65,34 @@ void setup()
 
 void loop()
 {
+     
       digitalWrite(ledAmarillo, LOW);
       digitalWrite(ledVerde, LOW);
       digitalWrite(ledRojo, LOW);
       //Texto de bienvenida 
       TECLA= teclado.getKey();
-
+      tone(BUZZER,-100);
       switch(TECLA)
       {
         case '1': 
           estado=1;
-          tone(BUZZER,200);
+          tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,0);
+          tone(BUZZER,-100);
         break;
         
         case '2':
          estado=2;
-         tone(BUZZER,200);
+         tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,0);
+          tone(BUZZER,-100);
         break;
 
         case '3':
          estado=3;
-         tone(BUZZER,200);
+         tone(BUZZER,500);
           delay(100); 
-          tone(BUZZER,0);
+          tone(BUZZER,-100);
          digitalWrite(ledAmarillo, LOW);
          digitalWrite(ledVerde, LOW);
          digitalWrite(ledRojo, LOW);
@@ -171,6 +173,7 @@ void loop()
                       digitalWrite(ledRojo, LOW);
                       digitalWrite(ledVerde, LOW);
                       digitalWrite(ledAmarillo, HIGH);
+                      
                   }
             
                 oled.clearDisplay(); 
